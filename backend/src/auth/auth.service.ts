@@ -25,7 +25,9 @@ export class AuthService {
 
   generateJwt(user: UserDocument): string {
     const payload = { email: user.email, _id: user._id.toString() };
-    return jwt.sign(payload, this.jwtSecret, { expiresIn: '8h' });
+    return jwt.sign(payload, this.jwtSecret, {
+      expiresIn: process.env.JWT_EXPIRATION,
+    });
   }
 
   async validateUser(email: string, password: string): Promise<UserDocument> {

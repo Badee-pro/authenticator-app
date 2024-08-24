@@ -8,7 +8,7 @@ import * as jwt from 'jsonwebtoken';
 
 @Injectable()
 export class JwtMiddleware implements NestMiddleware {
-  private readonly jwtSecret = process.env.JWT_SECRET || 'SECRET#123';
+  private readonly jwtSecret = process.env.JWT_SECRET;
 
   use(req: any, res: any, next: () => void) {
     const authHeader = req.headers['authorization'];
@@ -25,7 +25,7 @@ export class JwtMiddleware implements NestMiddleware {
       if (err) {
         throw new UnauthorizedException('Token authentication failed.');
       } else {
-        req.userId = decoded._id; // Use userId from the JWT payload
+        req.userId = decoded._id;
         next();
       }
     });

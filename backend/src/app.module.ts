@@ -4,12 +4,15 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { JwtMiddleware } from './auth/jwt.middleware';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      'mongodb+srv://badea:badea@cluster0.ejivk0m.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
-    ),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+
+    MongooseModule.forRoot(process.env.MONGODB_URI),
     AuthModule,
     UsersModule,
   ],
