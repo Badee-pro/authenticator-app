@@ -11,7 +11,7 @@ import { CreateUserDto } from 'src/dto/create-user.dto';
 
 @Injectable()
 export class AuthService {
-  private readonly jwtSecret = process.env.JWT_SECRET || 'SECRET#123';
+  private readonly jwtSecret = process.env.JWT_SECRET;
 
   constructor(private readonly usersService: UsersService) {}
 
